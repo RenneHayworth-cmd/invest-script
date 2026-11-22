@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A股投资工具箱</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">📈</div>
+      <div><div class="t1">A股投资工具箱</div><div class="t2">本地研究面板</div></div>
+    </div>
+    <nav class="nav">
+      <a href="#/overview" data-r="overview"><span class="ic">🏠</span>总览</a>
+      <div class="nav-title">数据</div>
+      <a href="#/data" data-r="data"><span class="ic">📥</span>数据中心</a>
+      <div class="nav-title">分析</div>
+      <a href="#/single" data-r="single"><span class="ic">🔍</span>单品种分析</a>
+      <a href="#/market" data-r="market"><span class="ic">🌐</span>指数与期货</a>
+      <div class="nav-title">策略</div>
+      <a href="#/backtest" data-r="backtest"><span class="ic">🔁</span>轮动回测</a>
+      <a href="#/spmo" data-r="spmo"><span class="ic">🏆</span>SPMO 选基</a>
+      <div class="nav-title">系统</div>
+      <a href="#/settings" data-r="settings"><span class="ic">⚙️</span>设置</a>
+    </nav>
+    <div class="side-foot" id="side-foot">正在连接…</div>
+  </aside>
+  <main>
+    <div class="page-head"><h1 id="page-title"></h1><p id="page-sub"></p></div>
+    <div id="view"></div>
+  </main>
+</div>
+<div id="toasts"></div>
+<script src="vendor/echarts.min.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/pages.js"></script>
+</body>
+</html>
