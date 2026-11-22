@@ -45,6 +45,14 @@ def _rebalance_dates(trade_dates: pd.Series, start, end, frequency: str) -> list
     return out
 
 
+def month_end(s: pd.Series) -> pd.Series:
+    """月末重采样（兼容 pandas 新旧版本的别名 ME / M）"""
+    try:
+        return s.resample("ME").last()
+    except ValueError:
+        return s.resample("M").last()
+
+
 def perf_metrics(nav: pd.Series, dates: pd.Series, trades_count: int = 0, rf: float = 0.02,
                  base: float | None = None) -> dict:
     """base：计算累计收益的基数（默认用首日净值；轮动策略传入初始资金，与原脚本口径一致）"""
@@ -61,7 +69,7 @@ def perf_metrics(nav: pd.Series, dates: pd.Series, trades_count: int = 0, rf: fl
     down = r[r < 0].std()
     sortino = (r.mean() * 252 - rf) / (down * np.sqrt(252)) if down and down > 0 else 0
     calmar = (r.mean() * 252) / abs(mdd) if mdd else 0
-    mret = nav.resample("ME").last().pct_change().dropna()
+    mret = month_end(nav).pct_change().dropna()
     years = days / 365 if days else 0
     return {"累计收益": total, "年化收益": ann, "最大回撤": mdd, "年化波动": sd * np.sqrt(252) if sd else 0,
             "夏普比率": round(float(sharpe), 2), "索提诺比率": round(float(sortino), 2),
