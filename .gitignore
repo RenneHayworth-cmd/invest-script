@@ -4,16 +4,16 @@ __pycache__/
 .venv/
 venv/
 
-# 面板生成的报告与本地数据
+# 面板生成的报告、本地数据与本机设置
 output/*
 !output/.keep
 *.csv
 *.xlsx
 *.xls
+settings.json
 
-# 本地密钥 / 配置
+# 本地密钥
 .env
-.streamlit/secrets.toml
 
 # 系统文件
 .DS_Store
