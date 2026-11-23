@@ -213,8 +213,9 @@ def spmo_score(prices: pd.Series, method: str = "weighted") -> dict:
             res.update({"综合评分": total * (252 / n) / vol0, "口径": f"新基金({n}天)"})
         return res
     s1, b1 = _period_score(prices, 21, 252, 231, vol, s_inc)
-    s6, b6 = _period_score(prices, 11, 137, 115, vol, s_inc)
-    s3, b3 = _period_score(prices, 5, 68, 58, vol, s_inc)
+    # ann_days 必须等于实际区间长度 back - lag：1年 252-21=231，6月 137-11=126，3月 68-5=63
+    s6, b6 = _period_score(prices, 11, 137, 126, vol, s_inc)
+    s3, b3 = _period_score(prices, 5, 68, 63, vol, s_inc)
     final = (s1 + s6 + s3) / 3 if method == "equal" else s1 * 0.4 + s6 * 0.35 + s3 * 0.25
     res.update({"SPMO(近1年)": s1, "SPMO(近6月)": s6, "SPMO(近3月)": s3, "综合评分": final,
                 "口径": "/".join("标" if b == "标准" else "成" for b in (b1, b6, b3))})
